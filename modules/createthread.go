@@ -1,14 +1,4 @@
 
-/*
-This program executes shellcode in the current process using the following steps
-	1. Allocate memory for the shellcode with VirtualAlloc setting the page permissions to Read/Write
-	2. Use the RtlCopyMemory macro to copy the shellcode to the allocated memory space
-	3. Change the memory page permissions to Execute/Read with VirtualProtect
-	4. Call CreateThread on shellcode address
-	5. Call WaitForSingleObject so the program does not end before the shellcode is executed
-
-This program leverages the functions from golang.org/x/sys/windows to call Windows procedures instead of manually loading them
-*/
 
 package main
 

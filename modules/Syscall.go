@@ -1,13 +1,5 @@
 
-/*
-This program executes shellcode in the current process using the following steps
-	1. Allocate memory for the shellcode with VirtualAlloc setting the page permissions to Read/Write
-	2. Use the RtlCopyMemory macro to copy the shellcode to the allocated memory space
-	3. Change the memory page permissions to Execute/Read with VirtualProtect
-	4. Use syscall to execute the entrypoint of the shellcode
 
-This program loads the DLLs and gets a handle to the used procedures itself instead of using the windows package directly.
-*/
 
 package main
 

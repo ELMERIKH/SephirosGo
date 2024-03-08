@@ -1,14 +1,3 @@
-/*
-This program executes shellcode in a remote process using the following steps
-	1. Get a handle to the target process
-	1. Allocate memory for the shellcode with VirtualAllocEx setting the page permissions to Read/Write
-	2. Use the WriteProcessMemory to copy the shellcode to the allocated memory space in the remote process
-	3. Change the memory page permissions to Execute/Read with VirtualProtectEx
-	4. Execute the entrypoint of the shellcode in the remote process with RtlCreateUserThread
-	5. Close the handle to the remote process
-
-This program loads the DLLs and gets a handle to the used procedures itself instead of using the windows package directly.
-*/
 
 package main
 

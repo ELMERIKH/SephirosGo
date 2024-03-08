@@ -1,15 +1,4 @@
 
-// Concept pulled from https://www.cyberbit.com/blog/endpoint-security/new-early-bird-code-injection-technique-discovered/
-
-/*
-	This program executes shellcode in a child process using the following steps:
-		1. Create a child proccess in a suspended state with CreateProcessW
-		2. Allocate RW memory in the child process with VirtualAllocEx
-		3. Write shellcode to the child process with WriteProcessMemory
-		4. Change the memory permissions to RX with VirtualProtectEx
-		5. Add a UserAPC call that executes the shellcode to the child process with QueueUserAPC
-		6. Resume the suspended program with ResumeThread function
-*/
 
 package main
 
