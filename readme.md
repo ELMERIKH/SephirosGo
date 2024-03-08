@@ -48,6 +48,6 @@ To do
 
 add encoding and ecryption for shellcode
 
-DISCLAIMER :
+⚠️ DISCLAIMER :
 ----------------------
 ME The author takes NO responsibility and/or liability for how you choose to use any of the tools/source code/any files provided. ME The author and anyone affiliated with will not be liable for any losses and/or damages in connection with use of SephirosGo. By using SephirosGo or any files included, you understand that you are AGREEING TO USE AT YOUR OWN RISK. Once again SephirosGo is for EDUCATION and/or RESEARCH purposes ONLY
