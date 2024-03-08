@@ -293,7 +293,8 @@ def main():
                             time.sleep(1.5)
                             clear(lol=True)
                             break
-                        
+                        subprocess.run("export GOOS=windows GOARCH=amd64", shell=True)
+                        print(f"\nbuilding...{green}")
                         run(f"garble -literals -tiny build -o ./Output/Sephiros.exe {folder}/{module_file}", shell=True)
                         print(f"\nYour exe is in ./Output folder{bgreen}")
                         pexit()
