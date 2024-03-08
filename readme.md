@@ -9,7 +9,8 @@ make sure your shellcode is in hex format
 
 and ofc don t upload to virus total ty :)
 
-avaiable techniques :
+available techniques :
+------
 
 callback :
             [1] createTimerQueue.go
