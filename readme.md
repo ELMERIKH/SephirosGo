@@ -1,4 +1,4 @@
-![alt text](<2024-03-08 10_42_15-.png>)
+![alt text](pic.png)
 
 Greetings
 -----------------
