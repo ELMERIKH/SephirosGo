@@ -11,6 +11,7 @@ import random
 import subprocess
 import re
 import time
+import platform
 
 black="\033[0;30m"
 red="\033[0;31m"
@@ -295,7 +296,11 @@ def main():
                             break
                         subprocess.run("export GOOS=windows GOARCH=amd64", shell=True)
                         print(f"\nbuilding...{green}")
-                        run(f"garble -literals -tiny build -o ./Output/Sephiros.exe {folder}/{module_file}", shell=True)
+                        if platform.system().lower() != "windows":
+                            run(f"garble -literals -tiny build -ldflags '-H=windowsgui' -o ./Output/Sephiros.exe {folder}/{module_file}", shell=True)
+                        else:
+                            run(f"""garble -literals -tiny build -ldflags "-H=windowsgui" -o ./Output/Sephiros.exe {folder}/{module_file}""", shell=True)
+
                         print(f"\nYour exe is in ./Output folder{bgreen}")
                         pexit()
                     else:

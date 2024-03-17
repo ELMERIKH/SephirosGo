@@ -5,7 +5,7 @@ Greetings
 
 SephirosGo  Shellcode Loader , that let s you choose how to load your shellcode filellessly or just embeding it using different injection techniques
 
-make sure your shellcode is in hex format 
+make sure your shellcode is in hex format if you want to embed it 
 
 and ofc don t upload to virus total ty :)
 
